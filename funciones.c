@@ -2,23 +2,27 @@
 #include <stdlib.h>
 #include "funciones.h"
 
-/*Implementamos la funcion menu.-*/
+/** \brief Funcion menuGeneral
+ *
+ * \param presenta las opciones
+ * \param de los calculos a realizar (suma, resta, multiplicacion, division, factorial).-
+ * \return Devuelve los calculos completos de cada operacion.-
+ *
+ */
 
 
-void menuGeneral()
+int menuGeneral()
 {
 system("cls");
 
 int opc;
-int num1;
-int num2;
-
-/*printf("\nIngresar 1er Operando (A): ");
-scanf("%f", &num1);
-
-printf("\nIngressar 2do Operando (B): ");
-scanf("%f", &num2);*/
-
+int ch;
+int ok;
+float num1=0;
+float num2=0;
+int suma=0;
+int resta=0;
+int multi=0;
 
 
 do{
@@ -27,13 +31,13 @@ system("cls");
 printf("\n======================================");
 printf("\nSeleccione la Operacion a Realizar");
 printf("\n======================================\n");
-//printf("\nEl valor de A es: %.2f", num1);
-//printf("\nEl valor de B es: %.2f", num2);
+printf("\nEl valor de A es: %.2f", num1);
+printf("\nEl valor de B es: %.2f", num2);
 printf("\n\n======================================\n");
 printf("\n1. Ingrese 1er operando (A=x)");
 printf("\n2. Ingrese 2do operando (B=y)");
 printf("\n\n======================================\n");
-printf("\n3. Calcular todas las operaciones");
+printf("\n3. Calcular todas las operaciones\n");
 printf("\na) Calcular la suma (A+B)");
 printf("\nb) Calcular la resta (A-b)");
 printf("\nc) Calcular la division (A/B)");
@@ -41,54 +45,116 @@ printf("\nd) Calcular la Multiplicacion (A*B)");
 printf("\ne) Calcular el Factorial (A!)");
 printf("\n\n======================================\n");
 printf("\n4. Informar resultados");
+printf("\n\n======================================\n");
 printf("\n5. Reiniciar");
+printf("\n\n======================================\n");
 printf("\n6. Salir");
 printf("\n\n======================================");
-printf("\nOpcion: ");
-scanf("%d", &opc);
-printf("\n======================================");
+
+do
+    {
+      printf("\nOpcion: ");
+      fflush(stdout);
+      if ((ok = scanf("%d", &opc)) == EOF)
+         return EXIT_FAILURE;
+
+
+      if ((ch = getchar()) != '\n')
+      {
+         ok = 0;
+
+         while ((ch = getchar()) != EOF && ch != '\n');
+      }
+   }while(!ok);
+printf("\n======================================\n");
 
 
 switch(opc)
 {
 
-case 1: printf("\nIngresar 1er Operando (A): ");
-        scanf("%d", &num1); break;
-case 2: printf("\nIngresar 2do Operando (B): ");
-        scanf("%d", &num2); break;
-case 3: sumar(num1,num2); //break;
+case 1: do
+        {
+            int ok;
+            int ch;
+
+        printf("\nIngresar 1er Operando (A): ");
+        fflush(stdout);
+
+        if ((ok = scanf("%f", &num1)) == EOF)
+            {
+
+                return 1;
+
+            }
+
+
+      if ((ch = getchar()) != '\n')
+      {
+         ok = 0;
+
+         while ((ch = getchar()) != EOF && ch != '\n');
+      }
+}while(!ok); break;
+
+case 2: do
+        {
+            int ok;
+            int ch;
+
+        printf("\nIngresar 2do Operando (B): ");
+        fflush(stdout);
+
+        if ((ok = scanf("%f", &num2)) == EOF)
+        {
+            return 1;
+        }
+
+
+      if ((ch = getchar()) != '\n')
+      {
+         ok = 0;
+
+         while ((ch = getchar()) != EOF && ch != '\n');
+      }
+}while(!ok); break;
+
+case 3: suma = num1+num2;
+        printf("\nsuma: %d", suma);
+        resta = num1-num2;
+        printf("\nresta: %d", resta);
+        multi = num1*num2;
+        printf("\nmultiplicacion: %d\n", multi); break;
+
+case 4: sumar(num1,num2); //break;
         restar(num1,num2); //break;
         dividir(num1, num2); //break;
         multiplicar(num1, num2); //break;
         factorial(num1, num2); break;
-//case 4: /*printf("\n======================================\n");
-        /*printf("\n%d: ", num1);
-        printf("\n%d: ", num2);
-        system("pause"); break;*/
-        /*printf("\nEl resultado de A+B es: %d", sumar(num1,num2));
-        printf("\nEl resultado de A-B es: %d", restar(num1,num2));
-        printf("\nEl resultado de A*B es: %d", multiplicar(num1,num2)); break;*/
-        //resultados(sumar(num1,num2),restar(num1,num2),multiplicar(num1,num2));
-        //system("pause");
-        //break;
-//case 6: menuGeneral(); break;
+case 5: menuGeneral(); break;
 }
 }while(opc != 6);
 
+return 0;
 }
-/*generamos la funcion sumar.-*/
 
-int sumar(int a, int b)
+/** \brief Funcion Sumar
+ *
+ * \param recibe como parametro el operando A=x
+ * \param recibe como parametro el operando B=y
+ * \return devuelve el valor calculado d ela suma entre ambos operandos.-
+ *
+ */
+
+int sumar(float a, float b)
 {
 system("cls");
 
-int suma;
-
+float suma;
 
 suma = a + b;
 
 printf("======================================");
-printf("\nEl resultado de A+B es: %d", suma);
+printf("\nEl resultado de A+B es: %.2f", suma);
 printf("\n======================================\n");
 
 /*system("pause");
@@ -101,18 +167,25 @@ return suma;
 }
 
 
-/*//generamos la funcion restar.-*/
+/** \brief Funcion Restar
+ *
+ * \param recibe como parametro el operando A=x
+ * \param recibe como parametro el operando B=y
+ * \return devuelve el valor calculado en la resta.-
+ *
+ */
 
-int restar(int a, int b)
+
+int restar(float a, float b)
 {
 //system("cls");
 
-int resta=0;
+float resta=0;
 
 resta = a - b;
 
 printf("======================================");
-printf("\nEl resultado de A-B es: %d", resta);
+printf("\nEl resultado de A-B es: %.2f", resta);
 printf("\n======================================\n");
 
 /*system("pause");
@@ -122,27 +195,35 @@ return resta;
 
 }
 
-/*//generamos la funcion dividir.-*/
+/** \brief Funcion dividir
+ *
+ * \param recibe como parametro el operando A=x
+ * \param recibe como parametro el operando B=y
+ * \param en caso de que el parametro B=y sea cero (0) devolvera "division invalida"
+ * \return devuelve el valor del calculo de la division en caso satisfactorio
+ *
+ */
 
-int dividir(int a, int b){
+
+int dividir(float a, float b){
 //system("cls");
 
-int div=0;
+float div=0;
 
 div = a / b;
 
 if(b == 0)
 {
 printf("======================================");
-printf("\n\nLa division no es valida!! \n\nNo se puede dividir entre cero");
-printf("\n======================================\n");
+printf("\n\nLA DIVISION NO ES VALIDA!! \n\nNO SE PUEDE DIVIDIR ENTRE CERO");
+printf("\n\n======================================\n");
 }
 
 else
 {
-printf("=========================================");
-printf("\nEl resultado de A/B es: %d", div);
-printf("\n=========================================\n");
+printf("======================================");
+printf("\nEl resultado de A/B es: %.2f", div);
+printf("\n======================================\n");
 }
 /*system("pause");
 system("cls");*/
@@ -153,19 +234,26 @@ return div;
 
 }
 
-/*generamos la funcion multiplicar.-*/
+/** \brief Funcion multiplicar
+ *
+ * \param recibe como parametro el operando A=x
+ * \param recime como parametro el operando B=y
+ * \return devuelve el valor del calculo de la multiplicacion entre ambos operandos
+ *
+ */
 
-int multiplicar(int a, int b)
+
+int multiplicar(float a, float b)
 {
 //system("cls");
 
-int mult=0;
+float mult=0;
 
 
 mult = a * b;
-printf("============================================");
-printf("\nEl resultado de A*B es: %d", mult);
-printf("\n============================================\n");
+printf("======================================");
+printf("\nEl resultado de A*B es: %.2f", mult);
+printf("\n======================================\n");
 
 /*system("pause");
 system("cls");*/
@@ -175,17 +263,24 @@ return mult;
 
 }
 
-//Definimos la funcion de factoreo
+/** \brief Funcion factorial
+ *
+ * \param recibe como parametro el operando A=x
+ * \param recibe como parametro el operando B=y
+ * \return devuelve el valor del calculo del factorial del operando A=x y el valor del calculo del factorial del operando B=y
+ *
+ */
 
-int factorial(int a, int b)
+
+int factorial(float a, float b)
 {
 //system("cls");
 
     int i;
-    int valor1=a;
-    int valor2=b;
-    int factorial = 1;
-    int facto = 1;
+    float valor1=a;
+    float valor2=b;
+    float factorial = 1;
+    float facto = 1;
 
     //printf("Ingrese el valor a factorear: ");
     //scanf("%d", &valor);
@@ -195,15 +290,15 @@ int factorial(int a, int b)
         factorial = factorial  * i;
     }
     printf("======================================");
-    printf("\nEl factorial de A es: %.d\n", factorial);
+    printf("\nEl factorial de A es: %.2f\n", factorial);
 
     for(i=valor2; i>=1; i--)
     {
         facto = facto * i;
     }
     printf("======================================");
-    printf("\nEl factorial de B es: %d\n", facto);
-    printf("======================================\n");
+    printf("\nEl factorial de B es: %.2f\n", facto);
+    printf("======================================\n\n");
 
 system("pause");
 system("cls");
@@ -211,14 +306,4 @@ system("cls");
     return 0;
 }
 
-void resultados(int suma(), int restar(), int multiplicar())
-{
 
-    printf("\n=================================================\n");
-    printf("\nEl resultado de A+B es: %d", sumar);
-    printf("\nEl resultado de A-b es: %d", restar);
-    printf("\nEl resultado de A*b es: %d", multiplicar);
-    printf("\n=================================================\n");
-
-
-}
